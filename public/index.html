@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ronan's Panda Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assests/css/styles.css">
+  <link href="./login.html" rel="login">
+  <link rel="icon" type="image/svg+xml" href="panda.png" />
+  <!-- ...existing large CSS block left commented... -->
+
+  <!-- Minimal dark-mode + popout overlay styles (keeps main stylesheet untouched) -->
+  <style>
+    /* Dark mode overrides */
+    body.dark-mode {
+      background: #121213 !important;
+      color: #e6e6e6 !important;
+    }
+    body.dark-mode header { background: rgba(255,255,255,0.02); }
+    body.dark-mode .image-container { background: #1f1f22; color: #e6e6e6; }
+    body.dark-mode .image-container img { background: #111; }
+    body.dark-mode .favorite-btn { background: #222; color: #eee; }
+    body.dark-mode .favorite-btn.favorited { color: #ff8fb0; background: rgba(255,142,176,0.06); }
+    body.dark-mode .view-counter { background: rgba(255,255,255,0.02); color: #ccc; }
+
+    /* Popout overlay */
+    #popoutOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: zoom-out;
+    }
+    #popoutOverlay[aria-hidden="false"] { display:flex; }
+    #popoutOverlay img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 16px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Header buttons */
+    #darkModeToggle {
+      position: absolute;
+      right: 120px;
+      top: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    body.dark-mode #darkModeToggle { border-color: rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="panda.png" alt="Panda Logo" style="height:48px;vertical-align:middle;margin-right:12px;">
+    <h1>Ronan's Panda Gallery</h1>
+    <div id="welcomeMsg" style="position:absolute; left:16px; top:8px; font-weight:600;"></div>
+    <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
+    <button id="loginPageBtn" style="position:absolute; right:16px; top:8px; padding:8px 12px; border-radius:8px;">Login</button>
+    <div style="margin-top:16px;">
+    </div>
+  </header>
+
+  <section class="gallery">
+<div class="image-container" data-id="panda1">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Grosser_Panda.JPG" alt="Panda walking" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda2">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://sdzwildlifeexplorers.org/sites/default/files/2017-07/stories-hero-preciouspandas.jpg" alt="Panda cub sitting" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda3">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://sdzwildlifeexplorers.org/sites/default/files/2017-07/panda-face.jpg" alt="Panda eating bamboo" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda4">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://redpandanetwork.org/get/files/image/galleries/Giant-Panda-Breeding-Research-Base-in-Chengdu-China-1.jpg" alt="Panda laying down" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda5">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://redpandanetwork.org/get/files/image/galleries/Smithsonians-National-Zoo-1-1.jpg" alt="Panda" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda6">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/panda-2083492_1280.jpg" alt="Panda 6" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda24">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d" alt="Panda 24" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda26">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg" alt="Panda 26" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda27">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/414886/pexels-photo-414886.jpeg" alt="Panda 27" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda31">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/709996/pexels-photo-709996.jpeg" alt="Panda 31" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda32">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/326875/pexels-photo-326875.jpeg" alt="Panda 32" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda33">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg" alt="Panda 33" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda34">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/209812/pexels-photo-209812.jpeg" alt="Panda 34" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda35">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://images.pexels.com/photos/1445020/pexels-photo-1445020.jpeg" alt="Panda 35" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda47">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://placebear.com/200/300" alt="Panda 47 (bear placeholder)" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda48">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://placebear.com/300/300" alt="Panda 48 (bear placeholder)" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda49">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://placebear.com/400/300" alt="Panda 49 (bear placeholder)" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda57">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://placebear.com/400/400" alt="panda-like bear 57" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda68">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="https://placebear.com/500/400" alt="bear 68" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+<div class="image-container" data-id="panda68">
+      <button class="favorite-btn" aria-label="Favorite">♡</button>
+      <img src="/public/assests/" alt="bear 69" />
+      <div class="view-counter">👁 0 | ❤️ 0</div>
+    </div>
+</section>
+
+  <footer>
+    <span>Made with ❤️ by Ronan — Panda Lover &amp; Coder</span>
+  </footer>
+
+  <div id="popoutOverlay" aria-label="Enlarged image view" tabindex="0" aria-hidden="true">
+    <img src="" alt="Expanded panda image" />
+  </div>
+
+  <script>
+    (function () {
+      const loginBtn = document.getElementById('loginPageBtn');
+      const welcomeMsg = document.getElementById('welcomeMsg');
+      const darkToggle = document.getElementById('darkModeToggle');
+      const popoutOverlay = document.getElementById('popoutOverlay');
+      const popoutImage = popoutOverlay.querySelector('img');
+      let currentUser = localStorage.getItem('userId');
+
+      // Login / Logout behavior
+      function refreshUserState() {
+        currentUser = localStorage.getItem('userId');
+        if (currentUser) {
+          loginBtn.textContent = 'Logout';
+          welcomeMsg.textContent = `Welcome back ${currentUser}`;
+          loginBtn.onclick = () => { localStorage.removeItem('userId'); location.reload(); };
+        } else {
+          loginBtn.textContent = 'Login';
+          welcomeMsg.textContent = '';
+          loginBtn.onclick = () => location.href = '/login';
+        }
+      }
+      refreshUserState();
+
+      // Dark mode
+      function setDarkMode(enabled) {
+        if (enabled) {
+          document.body.classList.add('dark-mode');
+          localStorage.setItem('darkMode', 'true');
+          darkToggle.textContent = '☀️';
+        } else {
+          document.body.classList.remove('dark-mode');
+          localStorage.setItem('darkMode', 'false');
+          darkToggle.textContent = '🌙';
+        }
+      }
+      darkToggle.addEventListener('click', () => setDarkMode(document.body.classList.toggle('dark-mode')));
+      // initialize from storage
+      setDarkMode(localStorage.getItem('darkMode') === 'true');
+
+      // Fetch server-side counts that are persisted
+      let viewsData = {};
+      fetch('/views.json')
+        .then(r => r.ok ? r.json() : {})
+        .then(json => { viewsData = json || {}; bindGallery(); })
+        .catch(() => { viewsData = {}; bindGallery(); });
+
+      function bindGallery() {
+        const containers = document.querySelectorAll('.image-container');
+        containers.forEach(container => {
+          const id = container.dataset.id;
+          const serverItem = (viewsData && viewsData[id]) ? viewsData[id] : { views: 0, hearts: 0, usersHearted: [] };
+
+          const img = container.querySelector('img');
+          const favBtn = container.querySelector('.favorite-btn');
+          const counter = container.querySelector('.view-counter');
+
+          // normalize server values
+          serverItem.views = Number.isFinite(serverItem.views) ? serverItem.views : 0;
+          serverItem.hearts = Number.isFinite(serverItem.hearts) ? serverItem.hearts : 0;
+          serverItem.usersHearted = Array.isArray(serverItem.usersHearted) ? serverItem.usersHearted : [];
+
+          // show initial counts from server
+          counter.textContent = `👁 ${serverItem.views} | ❤️ ${serverItem.hearts}`;
+
+          // helper to build headers (include X-User-Id when signed in)
+          function headers() {
+            const h = { 'Content-Type': 'application/json' };
+            if (currentUser) h['X-User-Id'] = currentUser;
+            return h;
+          }
+
+          // image click: increment view on server
+          if (img) {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', async () => {
+              // optimistic UI
+              serverItem.views = (serverItem.views || 0) + 1;
+              counter.textContent = `👁 ${serverItem.views} | ❤️ ${serverItem.hearts}`;
+              try {
+                const res = await fetch('/view', {
+                  method: 'POST',
+                  headers: headers(),
+                  body: JSON.stringify({ id })
+                });
+                const data = await res.json();
+                if (data && typeof data.views === 'number') {
+                  serverItem.views = data.views;
+                  serverItem.hearts = data.hearts;
+                  counter.textContent = `👁 ${serverItem.views} | ❤️ ${serverItem.hearts}`;
+                }
+              } catch (e) { /* ignore if offline */ }
+
+              // open popout as before
+              popoutImage.src = img.src;
+              popoutOverlay.setAttribute('aria-hidden', 'false');
+              popoutOverlay.focus();
+            });
+          }
+
+          // favorite toggle: call server /heart with X-User-Id
+          if (favBtn) {
+            favBtn.addEventListener('click', async (ev) => {
+              ev.stopPropagation();
+              if (!currentUser) return location.href = '/login';
+              try {
+                const res = await fetch('/heart', {
+                  method: 'POST',
+                  headers: headers(),
+                  body: JSON.stringify({ id })
+                });
+                const data = await res.json();
+                if (data) {
+                  serverItem.hearts = data.hearts || 0;
+                  const userHas = !!data.userHasHearted;
+                  favBtn.classList.toggle('favorited', userHas);
+                  favBtn.textContent = userHas ? '❤' : '♡';
+                  counter.textContent = `👁 ${serverItem.views || 0} | ❤️ ${serverItem.hearts || 0}`;
+                }
+              } catch (e) { /* ignore */ }
+            });
+
+            // reflect saved heart state from server fetch
+            const userHasAlready = currentUser && (serverItem.usersHearted || []).includes(currentUser);
+            favBtn.classList.toggle('favorited', !!userHasAlready);
+            favBtn.textContent = userHasAlready ? '❤' : '♡';
+          }
+        });
+      }
+
+      // Popout overlay controls: click or Escape to close
+      popoutOverlay.addEventListener('click', () => {
+        popoutImage.src = '';
+        popoutOverlay.setAttribute('aria-hidden', 'true');
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popoutOverlay.getAttribute('aria-hidden') === 'false') {
+          popoutImage.src = '';
+          popoutOverlay.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
